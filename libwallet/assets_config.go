@@ -12,6 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// 
 const (
 	logFileName   = "libwallet.log"
 	walletsDbName = "wallets.db"
