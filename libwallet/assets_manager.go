@@ -396,6 +396,11 @@ func (mgr *AssetsManager) LogDir() string {
 	return filepath.Join(mgr.params.RootDir, logFileName)
 }
 
+// DBDriver returns the db driver in use
+func (mgr *AssetsManager) DBDriver() string {
+	return mgr.params.DbDriver
+}
+
 // OpenWallets opens all wallets in the assets manager.
 func (mgr *AssetsManager) OpenWallets(startupPassphrase string) error {
 	for _, wallet := range mgr.AllWallets() {
