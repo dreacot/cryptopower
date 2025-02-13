@@ -40,6 +40,7 @@ func (pg *WalletSelectorPage) loadWallets() {
 	pg.walletsList[libutils.DCRWalletAsset] = walletsList[libutils.DCRWalletAsset]
 	pg.walletsList[libutils.BTCWalletAsset] = walletsList[libutils.BTCWalletAsset]
 	pg.walletsList[libutils.LTCWalletAsset] = walletsList[libutils.LTCWalletAsset]
+	pg.walletsList[libutils.ETHWalletAsset] = walletsList[libutils.ETHWalletAsset]
 	pg.listLock.Unlock()
 }
 

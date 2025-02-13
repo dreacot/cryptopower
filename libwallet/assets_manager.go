@@ -57,6 +57,10 @@ type Assets struct {
 		Wallets    map[int]sharedW.Asset
 		BadWallets map[int]*sharedW.Wallet
 	}
+	ETH struct {
+		Wallets    map[int]sharedW.Asset
+		BadWallets map[int]*sharedW.Wallet
+	}
 }
 
 // AssetsManager is a struct that holds all the necessary parameters
@@ -124,10 +128,12 @@ func initializeAssetsFields(rootDir, dbDriver, logDir string, netType utils.Netw
 	mgr.Assets.BTC.Wallets = make(map[int]sharedW.Asset)
 	mgr.Assets.DCR.Wallets = make(map[int]sharedW.Asset)
 	mgr.Assets.LTC.Wallets = make(map[int]sharedW.Asset)
+	mgr.Assets.ETH.Wallets = make(map[int]sharedW.Asset)
 
 	mgr.Assets.BTC.BadWallets = make(map[int]*sharedW.Wallet)
 	mgr.Assets.DCR.BadWallets = make(map[int]*sharedW.Wallet)
 	mgr.Assets.LTC.BadWallets = make(map[int]*sharedW.Wallet)
+	mgr.Assets.ETH.BadWallets = make(map[int]*sharedW.Wallet)
 
 	mgr.chainsParams.DCR = dcrChainParams
 	mgr.chainsParams.BTC = btcChainParams
@@ -535,6 +541,8 @@ func (mgr *AssetsManager) sortWallets(assetType utils.AssetType) []sharedW.Asset
 		unsortedWallets = mgr.Assets.BTC.Wallets
 	case utils.LTCWalletAsset:
 		unsortedWallets = mgr.Assets.LTC.Wallets
+	case utils.ETHWalletAsset:
+		unsortedWallets = mgr.Assets.ETH.Wallets
 	}
 
 	for _, wallet := range unsortedWallets {
@@ -571,11 +579,17 @@ func (mgr *AssetsManager) AllLTCWallets() (wallets []sharedW.Asset) {
 	return mgr.sortWallets(utils.LTCWalletAsset)
 }
 
+// AllETHWallets returns all ETH wallets in the assets manager.
+func (mgr *AssetsManager) AllETHWallets() (wallets []sharedW.Asset) {
+	return mgr.sortWallets(utils.ETHWalletAsset)
+}
+
 // AllWallets returns all wallets in the assets manager.
 func (mgr *AssetsManager) AllWallets() (wallets []sharedW.Asset) {
 	wallets = mgr.AllDCRWallets()
 	wallets = append(wallets, mgr.AllBTCWallets()...)
 	wallets = append(wallets, mgr.AllLTCWallets()...)
+	wallets = append(wallets, mgr.AllETHWallets()...)
 	return wallets
 }
 
@@ -627,6 +641,8 @@ func (mgr *AssetsManager) AssetWallets(assetTypes ...utils.AssetType) []sharedW.
 			wallets = append(wallets, mgr.AllDCRWallets()...)
 		case utils.LTCWalletAsset:
 			wallets = append(wallets, mgr.AllLTCWallets()...)
+		case utils.ETHWalletAsset:
+			wallets = append(wallets, mgr.AllETHWallets()...)
 		}
 	}
 
@@ -816,6 +832,7 @@ func (mgr *AssetsManager) AllAssetTypes() []utils.AssetType {
 		utils.DCRWalletAsset,
 		utils.BTCWalletAsset,
 		utils.LTCWalletAsset,
+		utils.ETHWalletAsset,
 	}
 }
 

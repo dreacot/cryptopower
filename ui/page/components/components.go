@@ -653,6 +653,8 @@ func CoinImageBySymbol(l *load.Load, assetType libutils.AssetType, isWatchOnly b
 			return l.Theme.Icons.LtcWatchOnly
 		}
 		return l.Theme.Icons.LTC
+	case libutils.ETHWalletAsset.ToStringLower():
+		return l.Theme.Icons.ETH // ETH does not support watch only wallets
 	}
 	return nil
 }

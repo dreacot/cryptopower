@@ -334,6 +334,8 @@ func (t *Theme) AssetIcon(asset utils.AssetType) *Image {
 		icon = t.Icons.LTC
 	case utils.BTCWalletAsset:
 		icon = t.Icons.BTC
+	case utils.ETHWalletAsset:
+		icon = t.Icons.ETH
 	default:
 		icon = nil
 	}
